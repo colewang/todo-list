@@ -1,5 +1,6 @@
 import React from "react";
 import {Input} from 'antd';
+const Search = Input.Search;
 
 class TodoDialog extends React.Component {
     constructor(props) {
@@ -8,7 +9,12 @@ class TodoDialog extends React.Component {
 
     render() {
         return (
-            <Input/>
+            <Search
+                placeholder="what do you want to do?"
+                enterButton="Add"
+                size="large"
+                onSearch={value => console.log(value)}
+            />
         )
     }
 }
