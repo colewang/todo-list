@@ -13,7 +13,7 @@ class TodoItem extends React.Component {
                         </Checkbox>
                     </Col>
                     <Col>
-                        <Button size="small" type="danger" icon="close"></Button>
+                        <Button name={this.props.item.id} size="small" type="danger" icon="close" onClick={this.props.handleDeleteItem}></Button>
                     </Col>
                 </Row>
             </div>

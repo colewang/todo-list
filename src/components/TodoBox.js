@@ -13,6 +13,7 @@ class TodoBox extends React.Component {
         this.state = this.initData();
         this.handleAddItem = this.handleAddItem.bind(this);
         this.handleTickItem = this.handleTickItem.bind(this);
+        this.handleDeleteItem = this.handleDeleteItem.bind(this);
     }
 
     initData() {
@@ -70,6 +71,12 @@ class TodoBox extends React.Component {
         this.insertData('activeItem', item);
     }
 
+    handleDeleteItem(event) {
+        this.removedDataById('completedItem', event.target.name);
+        this.removedDataById('activeItem', event.target.name);
+        this.setState(this.state);
+    }
+
     render() {
         return (
             <Row>
@@ -80,15 +87,18 @@ class TodoBox extends React.Component {
                     <Tabs type="card" tabPosition='bottom' tabBarGutter='20'>
                         <TabPane tab="All" key="1">
                             <TodoList itemData={this.state.activeItem.concat(this.state.completedItem)}
-                                      handleTickItem={this.handleTickItem}/>
+                                      handleTickItem={this.handleTickItem}
+                                      handleDeleteItem={this.handleDeleteItem}/>
                         </TabPane>
                         <TabPane tab="Active" key="2">
                             <TodoList itemData={this.state.activeItem}
-                                      handleTickItem={this.handleTickItem}/>
+                                      handleTickItem={this.handleTickItem}
+                                      handleDeleteItem={this.handleDeleteItem}/>
                         </TabPane>
                         <TabPane tab="Completed" key="3">
                             <TodoList itemData={this.state.completedItem}
-                                      handleTickItem={this.handleTickItem}/>
+                                      handleTickItem={this.handleTickItem}
+                                      handleDeleteItem={this.handleDeleteItem}/>
                         </TabPane>
                     </Tabs>
                 </Col>
