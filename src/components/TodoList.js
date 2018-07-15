@@ -3,13 +3,8 @@ import TodoItem from "./TodoItem";
 import {List} from 'antd';
 
 class TodoList extends React.Component {
-    constructor(props) {
-        super(props);
-
-    }
-
     render() {
-        const todoList = this.props.itemData.map(listItem => <TodoItem value={listItem}/>)
+        const todoList = this.props.itemData.map(listItem => <TodoItem value={listItem.value} checked={listItem.checked}/>)
         return (
             <List
                 size="large"

@@ -9,22 +9,27 @@ const TabPane = Tabs.TabPane;
 class TodoBox extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            allItem: [
-                'active one',
-                'completedItem one'
-            ],
+        this.state = this.getData();
+        this.handleAddAction = this.handleAddAction.bind(this);
+    }
+
+    getData() {
+        return {
             activeItem: [
-                'active one'
+                {value: 'active one', checked: false}
             ],
             completedItem: [
-                'completedItem one'
+                {value: 'completedItem one', checked: true}
             ]
         }
     }
 
-    callback(key) {
-        console.log(key);
+    handleAddAction(itemValue) {
+        if (itemValue !== '') {
+            let state = this.state;
+            state.activeItem.push({value: itemValue, checked: false});
+            this.setState(state);
+        }
     }
 
     render() {
@@ -32,10 +37,10 @@ class TodoBox extends React.Component {
             <Row>
                 <Divider>Todo List</Divider>
                 <Col xs={{span: 18, offset: 3}} sm={{span: 14, offset: 5}} md={{span: 10, offset: 7}} lg={{span: 6, offset: 9}}>
-                    <TodoDialog/>
-                    <Tabs onChange={this.callback} type="card" tabPosition='bottom' tabBarGutter='20'>
+                    <TodoDialog handleAddAction={this.handleAddAction}/>
+                    <Tabs type="card" tabPosition='bottom' tabBarGutter='20'>
                         <TabPane tab="All" key="1">
-                            <TodoList itemData={this.state.allItem}/>
+                            <TodoList itemData={this.state.activeItem.concat(this.state.completedItem)}/>
                         </TabPane>
                         <TabPane tab="Active" key="2">
                             <TodoList itemData={this.state.activeItem}/>
