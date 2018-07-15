@@ -10,7 +10,7 @@ class TodoDialog extends React.Component {
                 placeholder="what do you want to do?"
                 enterButton="Add"
                 size="large"
-                onSearch={this.props.handleAddAction}
+                onSearch={this.props.handleAddItem}
             />
         )
     }

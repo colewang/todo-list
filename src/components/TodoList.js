@@ -4,7 +4,7 @@ import {List} from 'antd';
 
 class TodoList extends React.Component {
     render() {
-        const todoList = this.props.itemData.map(listItem => <TodoItem value={listItem.value} checked={listItem.checked}/>)
+        const todoList = this.props.itemData.map(listItem => <TodoItem item={listItem} handleTickItem={this.props.handleTickItem}/>)
         return (
             <List
                 size="large"
