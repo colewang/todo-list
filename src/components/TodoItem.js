@@ -2,17 +2,11 @@ import React from "react";
 import {Checkbox} from 'antd';
 
 class TodoItem extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    onChange(e) {
-        console.log(`checked = ${e.target.checked}`);
-    }
-
     render() {
+        let checked = this.props.checked;
+        let value = this.props.value;
         return (
-            <Checkbox onChange={this.onChange}>{this.props.value}</Checkbox>
+            <Checkbox checked={checked}>{value}</Checkbox>
         )
     }
 }

@@ -3,9 +3,6 @@ import {Input} from 'antd';
 const Search = Input.Search;
 
 class TodoDialog extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         return (
@@ -13,7 +10,7 @@ class TodoDialog extends React.Component {
                 placeholder="what do you want to do?"
                 enterButton="Add"
                 size="large"
-                onSearch={value => console.log(value)}
+                onSearch={this.props.handleAddAction}
             />
         )
     }
