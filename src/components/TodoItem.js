@@ -1,10 +1,22 @@
 import React from "react";
-import {Checkbox} from 'antd';
+import {Row, Col, Button, Checkbox} from 'antd';
 
 class TodoItem extends React.Component {
     render() {
         return (
-            <Checkbox id={this.props.item.id} checked={this.props.item.checked} onChange={this.props.handleTickItem}>{this.props.item.value}</Checkbox>
+            <div style={{width: '100%'}}>
+                <Row type="flex" justify="space-between" align="bottom">
+                    <Col>
+                        <Checkbox id={this.props.item.id} checked={this.props.item.checked}
+                                  onChange={this.props.handleTickItem}>
+                            {this.props.item.value}
+                        </Checkbox>
+                    </Col>
+                    <Col>
+                        <Button size="small" type="danger" icon="close"></Button>
+                    </Col>
+                </Row>
+            </div>
         )
     }
 }
