@@ -3,10 +3,8 @@ import {Checkbox} from 'antd';
 
 class TodoItem extends React.Component {
     render() {
-        let checked = this.props.checked;
-        let value = this.props.value;
         return (
-            <Checkbox checked={checked}>{value}</Checkbox>
+            <Checkbox id={this.props.item.id} checked={this.props.item.checked} onChange={this.props.handleTickItem}>{this.props.item.value}</Checkbox>
         )
     }
 }
