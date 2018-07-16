@@ -7,6 +7,9 @@ import uuidv4 from 'uuid/v4';
 
 const TabPane = Tabs.TabPane;
 
+const Active = 'active';
+const Completed = 'completed';
+
 class TodoBox extends React.Component {
     constructor(props) {
         super(props);
@@ -18,31 +21,28 @@ class TodoBox extends React.Component {
 
     initData() {
         return {
-            activeItem: [
-                {id: uuidv4(), value: 'active one', checked: false}
-            ],
-            completedItem: [
-                {id: uuidv4(), value: 'completedItem one', checked: true}
+            item: [
+                {id: uuidv4(), value: 'active one', checked: false, status: Active},
+                {id: uuidv4(), value: 'completedItem one', checked: true, status: Completed}
             ]
         }
     }
 
-    insertData(target, value) {
-        this.state[target].push(value);
+    insertItem(value) {
+        this.state.item.push(value);
     }
 
-    removedDataById(target, id) {
-        this.state[target] = this.state[target].filter(itemInCompleted => {return itemInCompleted.id !== id})
+    removedItemById(id) {
+        this.state.item = this.state.item.filter(item => {return item.id !== id})
     }
 
     findItemById(id) {
-        let returnValue = this.state.completedItem.filter(itemInCompleted => {return itemInCompleted.id === id});
-        return returnValue.length ? returnValue : this.state.activeItem.filter(itemInActive => {return itemInActive.id === id});
+        return this.state.item.filter(item => {return item.id === id});
     }
 
     handleAddItem(itemValue) {
         if (itemValue !== '') {
-            this.insertData('activeItem', {id: uuidv4(), value: itemValue, checked: false});
+            this.insertItem({id: uuidv4(), value: itemValue, checked: false, status: Active});
             this.setState(this.state);
         }
     }
@@ -54,26 +54,15 @@ class TodoBox extends React.Component {
 
     changeItemStatus(item) {
         if(item.checked) {
-            this.handleTickCompletedItem(item);
+            item.status = Active;
         } else {
-            this.handleTickActiveItem(item);
+            item.status = Completed;
         }
         item.checked = !item.checked;
     }
 
-    handleTickActiveItem(item) {
-        this.removedDataById('activeItem', item.id);
-        this.insertData('completedItem', item);
-    }
-
-    handleTickCompletedItem(item) {
-        this.removedDataById('completedItem', item.id);
-        this.insertData('activeItem', item);
-    }
-
     handleDeleteItem(event) {
-        this.removedDataById('completedItem', event.target.name);
-        this.removedDataById('activeItem', event.target.name);
+        this.removedItemById(event.target.name);
         this.setState(this.state);
     }
 
@@ -86,19 +75,23 @@ class TodoBox extends React.Component {
                     <TodoDialog handleAddItem={this.handleAddItem}/>
                     <Tabs type="card" tabPosition='bottom' tabBarGutter='20'>
                         <TabPane tab="All" key="1">
-                            <TodoList itemData={this.state.activeItem.concat(this.state.completedItem)}
+                            <TodoList itemData={this.state.item}
                                       handleTickItem={this.handleTickItem}
                                       handleDeleteItem={this.handleDeleteItem}/>
                         </TabPane>
                         <TabPane tab="Active" key="2">
-                            <TodoList itemData={this.state.activeItem}
+                            <TodoList itemData={this.state.item}
                                       handleTickItem={this.handleTickItem}
-                                      handleDeleteItem={this.handleDeleteItem}/>
+                                      handleDeleteItem={this.handleDeleteItem}
+                                      itemStatus={Active}
+                            />
                         </TabPane>
                         <TabPane tab="Completed" key="3">
-                            <TodoList itemData={this.state.completedItem}
+                            <TodoList itemData={this.state.item}
                                       handleTickItem={this.handleTickItem}
-                                      handleDeleteItem={this.handleDeleteItem}/>
+                                      handleDeleteItem={this.handleDeleteItem}
+                                      itemStatus={Completed}
+                            />
                         </TabPane>
                     </Tabs>
                 </Col>
