@@ -1,6 +1,6 @@
 import React from 'react';
 import App from './App';
-import {shallow} from "enzyme/build/index";
+import {shallow} from "enzyme";
 import { expect } from 'chai';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
