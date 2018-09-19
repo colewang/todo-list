@@ -23,8 +23,6 @@ class TodoBox extends React.Component {
     initData() {
         return {
             item: [
-                {id: uuidv4(), value: 'active one', checked: false, status: Active},
-                {id: uuidv4(), value: 'completedItem one', checked: true, status: Completed}
             ]
         }
     }
